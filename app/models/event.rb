@@ -4,4 +4,10 @@ class Event < ApplicationRecord
      scope :get_by_course, ->(course) {
            where(course: course)
      }
+     
+     has_many :passive_relationships, class_name:  "Relationship",
+     foreign_key: "event_id",
+     dependent:   :destroy
+     has_many :followers, through: :passive_relationships, source: :user
+    
 end

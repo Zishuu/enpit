@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+#イベント
 Event.create(name: '焼肉',
              place: '牛角つくば駅前店',
              month: 1,
@@ -28,3 +29,44 @@ Event.create(name: 'くらくら寿司',
                course:1)
                
 
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.integer  "student_id"
+    t.boolean  "student"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "password_digest"
+    t.string   "password"
+    t.string   "course"
+  end
+  
+  
+# ユーザー
+User.create!(name:  "Example User",
+             email: "example@railstutorial.org",
+             password:              "foobar",
+             student_id: 111,
+             student: true,
+             course: coins,
+             created_at: Time.zone.now,
+             updated_at: Time.zone.now)
+
+#99.times do |n|
+#  name  = Faker::Name.name
+#  email = "example-#{n+1}@railstutorial.org"
+#  password = "password"
+#  User.create!(name:  name,
+#               email: email,
+#               password:              password,
+#               password_confirmation: password,
+#               activated: true,
+#               activated_at: Time.zone.now)
+#end
+
+# リレーションシップ
+user  = users.first
+following = event[1..4]
+following.each { |followed| user.follow(followed) }
+#followers.each { |follower| follower.follow(user) }
